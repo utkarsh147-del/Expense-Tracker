@@ -1,0 +1,310 @@
+/* style.css */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    margin: 20px;
+    text-align: center;
+    min-height: 100vh;
+    color: #333;
+}
+
+h1 {
+    font-size: 2.5em;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.section {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 25px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+#userInfo {
+    font-size: 1.2em;
+    color: #2c3e50;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+button.option-btn {
+    padding: 10px 20px;
+    font-size: 1em;
+    background: linear-gradient(90deg, #3498db, #2980b9);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 5px;
+    outline: none;
+}
+button.option-btn:hover {
+    background: linear-gradient(90deg, #2980b9, #3498db);
+    transform: scale(1.05);
+    box-shadow: 0 2px 10px rgba(52, 152, 219, 0.5);
+}
+
+button.action-btn {
+    padding: 10px 25px;
+    font-size: 1em;
+    background: linear-gradient(90deg, #27ae60, #219653);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-left: 10px;
+    outline: none;
+}
+button.action-btn:hover {
+    background: linear-gradient(90deg, #219653, #27ae60);
+    transform: scale(1.05);
+    box-shadow: 0 2px 10px rgba(39, 174, 96, 0.5);
+}
+
+#loadExpensesBtn,#addExpense,#login,#Refresh,#GetSugg, button[onclick="logout()"] {
+    padding: 10px 25px;
+    font-size: 1em;
+    background: linear-gradient(90deg, #e67e22, #d35400);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 5px;
+    outline: none;
+}
+#loadExpensesBtn:hover,#login:hover,#addExpense:hover,#Refresh:hover,#GetSugg:hover, button[onclick="logout()"]:hover {
+    background: linear-gradient(90deg, #d35400, #e67e22);
+    transform: scale(1.05);
+    box-shadow: 0 2px 10px rgba(230, 126, 34, 0.5);
+}
+
+#expensesList, #specificExpense, #deleteStatus, #editForm, #suggestionResult {
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 15px;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    text-align: left;
+    transition: all 0.3s ease;
+}
+
+#expensesList, #specificExpense, #deleteStatus, #editForm, #suggestionResult {
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 15px;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    text-align: left;
+    transition: all 0.3s ease;
+}
+#expensesList:hover, #specificExpense:hover, #deleteStatus:hover, #editForm:hover, #suggestionResult:hover {
+    background: #f0f0f0;
+}
+
+
+.expense-heading {
+    font-size: 1.5em;
+    color: #2c3e50;
+    font-weight: 600;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+#expensesList {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    padding: 20px;
+}
+
+.expense-card {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.expense-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.expense-card p {
+    margin: 5px 0;
+    color: #34495e;
+    font-size: 0.95em;
+}
+.expense-card strong {
+    color: #2c3e50;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    #expensesList {
+        grid-template-columns: 1fr; /* Single column on mobile */
+    }
+    .expense-heading {
+        font-size: 1.2em;
+    }
+}
+
+.form-group {
+    margin: 15px 0;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+#expenseSection .form-group {
+    flex-direction: column; /* Stack fields vertically */
+    align-items: center; /* Center-align the fields */
+    text-align: center; /* Ensure text is centered */
+}
+.form-group label {
+    font-weight: 500;
+    color: #34495e;
+    min-width: 100px;
+}
+
+input, select {
+    padding: 8px 12px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 200px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+input:focus, select:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+    outline: none;
+}
+
+.alert {
+    color: #e74c3c;
+    font-weight: bold;
+    margin-bottom: 10px;
+    padding: 10px;
+    background: #fadbd8;
+    border-radius: 5px;
+    display: none;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.success {
+    color: #27ae60;
+    background: #e8f5e9;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    animation: fadeIn 0.5s ease;
+}
+
+/* style.css */
+
+/* Styling for links */
+a {
+    color: #3498db;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+a:hover {
+    color: #2980b9;
+    text-decoration: underline;
+}
+
+/* Ensure success message looks good */
+#successMessage {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+/* Center form inputs in index.html */
+#loginSection .form-group,
+#registerSection .form-group {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+.error {
+    color: #e74c3c;
+    font-weight: bold;
+    background: #fadbd8;
+    padding: 10px;
+    border-radius: 5px;
+    display: inline-block;
+}
+/* style.css */
+
+/* Spinner animation */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-btn {
+    position: relative;
+    background: linear-gradient(90deg, #27ae60, #219653);
+    color: white !important;
+    pointer-events: none; /* Disable clicks while loading */
+}
+.loading-btn::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #fff;
+    border-top: 2px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-left: 5px;
+}
+
+/* Ensure button text is centered with spinner */
+.loading-btn span {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.loading-btn:not(:disabled) span {
+    opacity: 1;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    h1 { font-size: 2em; }
+    .section { padding: 15px; }
+    button.option-btn, button.action-btn { padding: 8px 15px; font-size: 0.9em; }
+    .form-group { flex-direction: column; align-items: flex-start; }
+    input, select { width: 100%; }
+}
