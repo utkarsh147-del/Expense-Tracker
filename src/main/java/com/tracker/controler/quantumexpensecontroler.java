@@ -36,8 +36,8 @@ public class quantumexpensecontroler {
         	
 //        	ProcessBuilder pb = new ProcessBuilder("src\\main\\java\\com\\tracker\\quantumscripts\\project\\Scripts\\python.exe", "src/main/java/com/tracker/quantumscripts/quantumscripts.py",category);
 			ProcessBuilder pb = new ProcessBuilder("python3", "/app/Scripts/script.py", category);
-
-            pb.directory(new java.io.File("."));
+			pb.directory(new File("/app"));
+          //  pb.directory(new java.io.File("."));
             Process p = pb.start();
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
