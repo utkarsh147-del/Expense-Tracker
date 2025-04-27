@@ -456,6 +456,14 @@
             suggestionButton.disabled = false;
         });
     }
+    function logout() {
+        token = null;
+        localStorage.removeItem('token');
+        setTimeout(() => {
+                    console.log("Redirecting to Login page");
+                    window.location.href = 'index.html';
+                }, 100);
+    }
     </script>
 </body>
 </html>
