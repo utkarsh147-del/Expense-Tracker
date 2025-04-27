@@ -16,6 +16,7 @@ COPY --from=build /app/target/tracker-0.0.1-SNAPSHOT.jar app.jar
 
 # 3. Copy your Python scripts (optional)
 COPY src/main/java/com/tracker/quantumscripts/quantumscripts.py /app/scripts
+COPY src/main/java/com/tracker/quantumscripts/project/Scripts /app/scripts 
 
 # 4. Copy and install Python requirements (optional)
 COPY requirements.txt .

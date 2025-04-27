@@ -33,7 +33,7 @@ public class quantumexpensecontroler {
 			User user=userService.findByUserName(userName);
 			String category = expenseservice.getHighestSpendingCategory(user.getExpenseList());
         	
-        	ProcessBuilder pb = new ProcessBuilder("src\\main\\java\\com\\tracker\\quantumscripts\\project\\Scripts\\python.exe", "src/main/java/com/tracker/quantumscripts/quantumscripts.py",category);
+        	ProcessBuilder pb = new ProcessBuilder("/app/scripts/python.exe", "/app/scripts/quantumscripts.py",category);
             pb.directory(new java.io.File("."));
             Process p = pb.start();
 
