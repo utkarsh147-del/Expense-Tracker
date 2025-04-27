@@ -60,7 +60,7 @@
             const password = document.getElementById('loginPassword').value;
             console.log("Attempting login with:", userName, password);
 
-            fetch('http://localhost:8072/public/login', {
+            fetch('/public/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ userName, password })
@@ -108,7 +108,7 @@ function login() {
 
             console.log("Attempting login with:", userName, password);
 
-            fetch('http://localhost:8072/public/login', {
+            fetch('/public/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ userName, password })
@@ -156,7 +156,7 @@ function login() {
 
             console.log("Sending: ", { userName, password });
 
-            fetch('http://localhost:8072/public/create-user', {
+            fetch('/public/create-user', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ userName, password })

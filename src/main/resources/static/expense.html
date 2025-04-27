@@ -179,7 +179,7 @@
                 date
             };
 
-            fetch(`http://localhost:8072/expense/${currentExpenseId}`, {
+            fetch(`/expense/${currentExpenseId}`, {
                 method: 'PUT',
                 headers: {
                     'Authorization': 'Basic ' + btoa(userName + ":" + password),
@@ -221,7 +221,7 @@
                 category: document.getElementById('category').value,
             };
             console.log("Adding expense:", expense);
-            fetch('http://localhost:8072/expense', {
+            fetch('/expense', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -252,7 +252,7 @@
             return;
         }
         console.log("Fetching expenses with token:", token);
-        fetch('http://localhost:8072/expense', {
+        fetch('/expense', {
             method: 'GET',
             headers: { 'Authorization': 'Basic ' + btoa(userName + ":" + password) }
         })
@@ -308,7 +308,7 @@
             specificExpense.innerHTML = '<p>Loading...</p>';
             specificExpense.style.display = 'block';
 
-            fetch(`http://localhost:8072/expense/id/${expenseId}`, {
+            fetch(`/expense/id/${expenseId}`, {
                 method: 'GET',
                 headers: { 'Authorization': 'Basic ' + btoa(userName + ":" + password) }
             })
@@ -350,7 +350,7 @@
             deleteStatus.innerHTML = '<p>Deleting...</p>';
             deleteStatus.style.display = 'block';
 
-            fetch(`http://localhost:8072/expense/id/${expenseId}`, {
+            fetch(`/expense/id/${expenseId}`, {
                 method: 'DELETE',
                 headers: { 'Authorization': 'Basic ' + btoa(userName + ":" + password) }
             })
@@ -388,7 +388,7 @@
             specificExpense.style.display = 'block';
             editForm.style.display = 'none';
 
-            fetch(`http://localhost:8072/expense/id/${expenseId}`, {
+            fetch(`/expense/id/${expenseId}`, {
                 method: 'GET',
                 headers: { 'Authorization': 'Basic ' + btoa(userName + ":" + password) }
             })
@@ -431,7 +431,7 @@
         suggestionButton.disabled = true;
 
         console.log("Fetching suggestion with token:", token);
-        fetch('http://localhost:8072/api/quantum/suggestions', {
+        fetch('/api/quantum/suggestions', {
             method: 'GET',
             headers: { 'Authorization': 'Basic ' + btoa(userName + ":" + password) }
         })
