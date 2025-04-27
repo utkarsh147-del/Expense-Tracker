@@ -11,7 +11,7 @@ FROM eclipse-temurin:17-jdk-jammy
 WORKDIR /app
 # Install Python
 RUN apt-get update && apt-get install -y python3 python3-pip
-# Copy Python scripts and dependencies
+# Copy Python scripts
 COPY src/main/java/com/tracker/quantumscripts/project/Scripts /app/Scripts
 COPY --from=build /app/target/tracker-0.0.1-SNAPSHOT.jar app.jar
 EXPOSE 8072
