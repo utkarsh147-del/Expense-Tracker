@@ -11,7 +11,7 @@ FROM eclipse-temurin:17-jdk-jammy
 WORKDIR /app
 # Install Python
 RUN apt-get update && apt-get install -y python3 python3-pip
-RUN pip3 install qiskit
+RUN pip3 install qiskit qiskit-aer
 # Copy Python scripts
 COPY src/main/java/com/tracker/quantumscripts/project/Scripts /app/Scripts
 COPY src/main/java/com/tracker/quantumscripts /app/Scripts/file
