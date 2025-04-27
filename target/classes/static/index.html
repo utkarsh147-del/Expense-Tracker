@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quantum Expense Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Quantum Expense Tracker</h1>
+
+    <!-- Login Section -->
+    <div id="loginSection" class="section">
+        <h3>Login</h3>
+        <div class="form-group">
+            <input type="text" id="loginuserName" placeholder="userName">
+        </div>
+        <div class="form-group">
+            <input type="password" id="loginPassword" placeholder="Password">
+        </div>
+        <button id="login" onclick="login()">Login</button>
+        <p id="loginStatus"></p>
+        <p>Don't have an account? <a href="#" onclick="showRegister()">Register</a></p>
+    </div>
+
+    <!-- Register Section -->
+    <div id="registerSection" class="section hidden">
+        <h3>Register</h3>
+        <div class="form-group">
+            <input type="text" id="registeruserName" placeholder="userName">
+        </div>
+        <div class="form-group">
+            <input type="password" id="registerPassword" placeholder="Password">
+        </div>
+        <button class="action-btn" onclick="register()">Register</button>
+        <button class="action-btn" onclick="showLogin()">Back to Login</button>
+        <p id="registerStatus"></p>
+        <div id="successMessage" class="success hidden">
+            <p>User Registration Done, Click on Back to Login</p>
+            <button class="action-btn" onclick="showLogin()">Back to Login</button>
+        </div>
+    </div>
+
+    <script>
+        let token = null;
+
+        function showRegister() {
+            document.getElementById('loginSection').classList.add('hidden');
+            document.getElementById('registerSection').classList.remove('hidden');
+            document.getElementById('successMessage').classList.add('hidden'); // Hide success message when showing register
+        }
+
+        function showLogin() {
+            document.getElementById('registerSection').classList.add('hidden');
+            document.getElementById('loginSection').classList.remove('hidden');
+            document.getElementById('successMessage').classList.add('hidden'); // Hide success message when showing login
+        }
+
+        function login() {
+            const userName = document.getElementById('loginuserName').value;
+            const password = document.getElementById('loginPassword').value;
+            console.log("Attempting login with:", userName, password);
+
+            fetch('/public/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ userName, password })
+            })
+            .then(response => {
+                console.log("Login response status:", response.status);
+                if (!response.ok) {
+                    throw new Error('Login failed with status: ' + response.status);
+                }
+                return response.text();
+            })
+            .then(data => {
+                console.log("Login response data (token):", data);
+                token = data;
+                document.getElementById('loginStatus').innerText = 'Login successful as ' + token;
+                localStorage.setItem('storedUsername', userName);
+                localStorage.setItem('storedPassword', password);
+
+                setTimeout(() => {
+                    console.log("Redirecting to expense.html with token:", token);
+                    window.location.href = 'expense.html?token=' + encodeURIComponent(token);
+                }, 100);
+            })
+            .catch(error => {
+                console.error("Login error:", error);
+                if (error.message.includes('message channel closed')) {
+                    console.log("Async error detected, retrying login...");
+                    setTimeout(login, 500);
+                } else {
+                    document.getElementById('loginStatus').innerText = 'Error: ' + error.message;
+                }
+            });
+        }
+
+function login() {
+            const userName = document.getElementById('loginuserName').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+            const loginStatus = document.getElementById('loginStatus');
+
+            // Validation for empty fields
+            if (!userName || !password) {
+                loginStatus.innerHTML = '<span class="error">Username and Password cannot be empty!</span>';
+                return;
+            }
+
+            console.log("Attempting login with:", userName, password);
+
+            fetch('/public/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ userName, password })
+            })
+            .then(response => {
+                console.log("Login response status:", response.status);
+                if (!response.ok) {
+                    throw new Error('Login failed with status: ' + response.status);
+                }
+                return response.text();
+            })
+            .then(data => {
+                console.log("Login response data (token):", data);
+                token = data;
+                loginStatus.innerText = 'Login successful as ' + token;
+                localStorage.setItem('storedUsername', userName);
+                localStorage.setItem('storedPassword', password);
+
+                setTimeout(() => {
+                    console.log("Redirecting to expense.html with token:", token);
+                    window.location.href = 'expense.html?token=' + encodeURIComponent(token);
+                }, 100);
+            })
+            .catch(error => {
+                console.error("Login error:", error);
+                if (error.message.includes('message channel closed')) {
+                    console.log("Async error detected, retrying login...");
+                    setTimeout(login, 500);
+                } else {
+                    loginStatus.innerHTML = `<span class="error">Error: ${error.message}</span>`;
+                }
+            });
+        }
+
+        function register() {
+            const userName = document.getElementById('registeruserName').value.trim();
+            const password = document.getElementById('registerPassword').value.trim();
+            const registerStatus = document.getElementById('registerStatus');
+
+            // Validation for empty fields
+            if (!userName || !password) {
+                registerStatus.innerHTML = '<span class="error">Username and Password cannot be empty!</span>';
+                return;
+            }
+
+            console.log("Sending: ", { userName, password });
+
+            fetch('/public/create-user', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ userName, password })
+            })
+            .then(response => {
+                console.log("Register response status:", response.status);
+                if (!response.ok) {
+                    throw new Error('Registration failed with status: ' + response.status);
+                }
+                return response.text();
+            })
+            .then(data => {
+                console.log("Register response data:", data); // Log the exact response
+                registerStatus.innerText = data;
+                // Show success message regardless of response content for now
+                document.getElementById('registeruserName').style.display = 'none';
+                document.getElementById('registerPassword').style.display = 'none';
+                document.querySelectorAll('#registerSection button:not(#successMessage button)').forEach(btn => btn.style.display = 'none');
+                registerStatus.style.display = 'none';
+                document.getElementById('successMessage').classList.remove('hidden');
+            })
+            .catch(error => {
+                console.error("Register error:", error);
+                registerStatus.innerHTML = `<span class="error">Error: ${error}</span>`;
+            });
+        }
+    </script>
+</body>
+</html>
