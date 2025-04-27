@@ -14,7 +14,8 @@ import com.tracker.service.UserService;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 @RestController
 @RequestMapping("/api/quantum")
 public class quantumexpensecontroler {
@@ -34,7 +35,7 @@ public class quantumexpensecontroler {
 			String category = expenseservice.getHighestSpendingCategory(user.getExpenseList());
         	
 //        	ProcessBuilder pb = new ProcessBuilder("src\\main\\java\\com\\tracker\\quantumscripts\\project\\Scripts\\python.exe", "src/main/java/com/tracker/quantumscripts/quantumscripts.py",category);
-			ProcessBuilder pb = new ProcessBuilder("/usr/bin/python3", "/app/scripts/quantumscripts.py", category);
+			ProcessBuilder pb = new ProcessBuilder("python3", "/app/Scripts/script.py", category);
 
             pb.directory(new java.io.File("."));
             Process p = pb.start();
