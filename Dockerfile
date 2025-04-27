@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y python3 python3-pip
 COPY --from=build /app/target/tracker-0.0.1-SNAPSHOT.jar app.jar
 
 # Copy the Python scripts
-COPY src/main/java/com/tracker/quantumscripts/project/Scripts /app/scripts
+#COPY src/main/java/com/tracker/quantumscripts/project/Scripts /app/scripts
 
 EXPOSE 8072
 ENTRYPOINT ["java", "-jar", "app.jar"]
